@@ -1,0 +1,37 @@
+{
+  "model": "",
+  "run_date": "",
+  "operator": "",
+  "weights_version": "v0.1",
+  "params": {
+    "temperature": null,
+    "top_p": null,
+    "max_output_tokens": null,
+    "reasoning_effort": null
+  },
+  "dimensions": {
+    "agentic_coding":        { "score": null, "benchmarks": {} },
+    "reasoning":             { "score": null, "benchmarks": {} },
+    "instruction_following": { "score": null, "benchmarks": {} },
+    "sycophancy":            { "score": null, "benchmarks": {} },
+    "over_refusal":          { "score": null, "benchmarks": {} },
+    "truthfulness":          { "score": null, "benchmarks": {} },
+    "tool_use":              { "score": null, "benchmarks": {} },
+    "long_context":          { "score": null, "benchmarks": {} }
+  },
+  "composite": null,
+  "surfaced_metrics": {
+    "confident_wrong_rate": null,
+    "refusal_rate": null,
+    "ingested_fraction": null
+  },
+  "cross_checks": {
+    "livebench": { "score": null, "snapshot": "", "source": "" },
+    "lmarena":   { "score": null, "style_control": true, "snapshot": "", "source": "" }
+  },
+  "qualitative": {
+    "conciseness": "",
+    "notes": ""
+  },
+  "artifacts": ""
+}

@@ -1,0 +1,14 @@
+{
+  "version": "v0.1",
+  "description": "Default dimension weights for the composite score. Weights are configuration, not doctrine — published scores must state which version produced them.",
+  "weights": {
+    "agentic_coding": 0.25,
+    "reasoning": 0.20,
+    "instruction_following": 0.15,
+    "sycophancy": 0.10,
+    "truthfulness": 0.10,
+    "tool_use": 0.10,
+    "over_refusal": 0.05,
+    "long_context": 0.05
+  }
+}
