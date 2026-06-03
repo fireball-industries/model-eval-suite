@@ -18,7 +18,7 @@ Every rated model gets one `results/data/<model>.json` file matching the structu
     "agentic_coding": {
       "score": 0.0,
       "benchmarks": {
-        "swe_bench_verified": { "score": 0.0, "mode": "local-run|ingested", "source": "url", "snapshot": "YYYY-MM-DD" },
+        "swe_bench_verified": { "score": 0.0, "mode": "local-run|ingested|agent-run", "source": "url", "snapshot": "YYYY-MM-DD" },
         "swe_bench_pro":      { "score": 0.0, "mode": "ingested", "source": "url", "snapshot": "YYYY-MM-DD" },
         "terminal_bench":     { "score": 0.0, "mode": "local-run", "source": "url", "snapshot": "YYYY-MM-DD" },
         "aider_polyglot":     { "score": 0.0, "mode": "local-run", "source": "url", "snapshot": "YYYY-MM-DD" },
@@ -53,6 +53,7 @@ Every rated model gets one `results/data/<model>.json` file matching the structu
 
 ## Rules
 - `mode: ingested` scores are excluded from the ±2 reproducibility guarantee (SOW §3) and must carry a `source` + `snapshot`.
+- `mode: agent-run` means the model under test answered via its host harness's own subagents (no provider API call); name the harness in `qualitative.notes`. See [`../AGENTS.md`](../AGENTS.md).
 - `surfaced_metrics` are always populated and shown on the scoreboard — they are never hidden inside a dimension score.
 - `composite` must state which `weights_version` produced it.
 - Leave a benchmark `null` rather than guessing if it wasn't run; an honest gap beats a fabricated number.

@@ -1,0 +1,22 @@
+[project]
+name = "model-eval-suite-harness"
+version = "0.1.0"
+description = "Stdio utility that benchmarks LLM models across the suite's eight dimensions and emits results/data/<model>.json records."
+requires-python = ">=3.11"
+# Scoring and scoreboard rendering are stdlib-only by design (no runtime deps).
+# Benchmark runners add provider SDKs as optional extras below as they land.
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+# Filled in as benchmark wiring lands (Milestones 3-5):
+# providers = ["anthropic", "openai", "zhipuai", "google-genai"]
+
+[project.scripts]
+eval-suite = "harness.__main__:main"
+
+[tool.setuptools]
+packages = ["harness"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

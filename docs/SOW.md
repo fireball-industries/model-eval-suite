@@ -16,7 +16,7 @@ This exists because mainstream leaderboards optimize what's easy to score — pa
 ## 2. Scope
 
 ### In scope
-- A fixed, versioned suite of public benchmarks across seven dimensions (Section 5).
+- A fixed, versioned suite of public benchmarks across eight dimensions (Section 5).
 - An ordered testing sequence (the runbook) that any operator can follow to evaluate one model.
 - A scoring and weighting model that produces a composite plus per-dimension scores.
 - A public results format: structured data + human-readable scoreboard.
@@ -50,8 +50,9 @@ This exists because mainstream leaderboards optimize what's easy to score — pa
 ### Execution modes
 - **Local-run** — we run the harness ourselves (preferred for behavioral benchmarks and anything contamination-sensitive).
 - **Ingested** — we record a vendor/third-party published score with source URL and snapshot date (used where the official harness is gated or compute-prohibitive). Ingested scores are flagged as such and excluded from the reproducibility guarantee.
+- **Agent-run** — the model under test is the model hosting the agent that drives the suite (e.g. Claude in Claude Code, GLM-5.1 in Kilo Code); it answers prompts via the harness's own subagents while the harness verifies and scores them. Harness- and provider-neutral, needs no API key, and measures the model *as it behaves in that harness* — so the harness is recorded with the score. See [`../AGENTS.md`](../AGENTS.md).
 
-## 5. Benchmark Suite (seven dimensions)
+## 5. Benchmark Suite (eight dimensions)
 
 Full detail, sources, and known weaknesses in [`benchmarks/catalog.md`](../benchmarks/catalog.md).
 
