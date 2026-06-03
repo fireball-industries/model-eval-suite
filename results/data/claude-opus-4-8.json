@@ -15,17 +15,29 @@
       "benchmarks": {}
     },
     "reasoning": {
-      "score": 100.0,
+      "score": 72.7,
       "benchmarks": {
+        "gpqa_diamond": {
+          "score": 72.7,
+          "mode": "agent-run",
+          "source": "https://huggingface.co/datasets/hendrydong/gpqa_diamond (GPQA Diamond, open-ended form)",
+          "snapshot": "2026-06-03",
+          "sample_size": 11,
+          "dataset_size": 198,
+          "metric": "accuracy on open-ended answers graded against gold (correct / graded)",
+          "by_domain": "Physics 4/4, Chemistry 4/7",
+          "grading": "operator-graded against \\boxed{} gold answers",
+          "note": "DISCRIMINATING / non-saturated: 8 of 11 correct. Run open-ended (no multiple-choice options shown), which is harder than the original MCQ and guess-proof. The 3 misses are genuine hard-chemistry errors (pinacol product A, an FeCl3 statement, a Diels-Alder stereochemistry). One Diamond item excluded — its gold answer was garbled in this mirror."
+        },
         "aime_2024": {
-          "score": 100.0,
+          "score": null,
           "mode": "agent-run",
           "source": "https://huggingface.co/datasets/Maxwell-Jia/AIME_2024",
           "snapshot": "2026-06-03",
           "sample_size": 8,
           "dataset_size": 30,
-          "metric": "exact-match accuracy (integer answer 0-999)",
-          "note": "CONTAMINATED / SATURATED — 8/8 correct, but AIME 2024 predates the model's Jan-2026 training cutoff and is heavily represented in training data. Problem 2024-II-8 is a smoking gun: the model hand-waved the tangent-circle geometry, wrote 'the known AIME answer is 127', and returned it rather than deriving it — recall, not reasoning. Treat this 100 as unreliable. A contamination-resistant reasoning score needs GPQA Diamond / ARC-AGI-2 / a post-cutoff problem set, all gated or unavailable here."
+          "raw_accuracy": 100.0,
+          "note": "EXCLUDED FROM SCORING (score null) — CONTAMINATED: 8/8, but AIME 2024 predates the Jan-2026 cutoff and is in training data. Problem 2024-II-8 is the smoking gun — the model hand-waved the geometry, wrote 'the known AIME answer is 127', and returned it rather than deriving it (recall, not reasoning). Kept here only to document why static contaminated sets are downweighted; the reasoning score uses GPQA Diamond instead."
         }
       }
     },
@@ -114,7 +126,7 @@
       "benchmarks": {}
     }
   },
-  "composite": 92.2,
+  "composite": 83.1,
   "surfaced_metrics": {
     "confident_wrong_rate": 40.0,
     "refusal_rate": 0.0,
@@ -135,7 +147,7 @@
   },
   "qualitative": {
     "conciseness": "Not scored (no reliable benchmark). Observation from this run: responses were thorough and on-task; the no-comma critique (key 3540) and the <5-sentence elaboration (key 1262) stayed appropriately tight under length constraints.",
-    "notes": "PARTIAL RATING. Measured via agent-run: instruction-following (IFEval=100), over-refusal (XSTest=100), sycophancy (SycEval-style=100), reasoning (AIME-2024=100), truthfulness (SimpleQA accuracy 53.3, confident-wrong 40). KEY FINDING: for a frontier model, every accessible benchmark here SATURATES at 100 — IFEval/XSTest/the sycophancy probe are too easy, and AIME-2024 is contaminated (the model recalled an answer rather than deriving it; the set predates the Jan-2026 cutoff). Only SimpleQA discriminates, and its real signal is the 40% confident-wrong rate (the model guesses instead of abstaining on obscure facts). This validates the suite's contamination-aware thesis: genuine discrimination needs contamination-resistant/gated sets (GPQA Diamond, ARC-AGI-2, FrontierMath, HLE) and sandboxed agentic coding (SWE-bench) + tool-use (BFCL/tau-bench) — none runnable via agent-run here, so agentic_coding (25%) and tool_use (10%) are left null: honest gaps, never fabricated. The composite is renormalized over measured dimensions and is INFLATED by the saturated 100s — read the per-dimension scores and the confident-wrong rate, not the composite. Execution mode agent-run = host Claude via Claude Code subagents (params = subagent defaults, null); IFEval/XSTest re-run with operator-config-neutralized responders (reproduced). Samples are small; SimpleQA operator-graded vs gold; first-run XSTest self-judged."
+    "notes": "PARTIAL RATING. Measured via agent-run. DISCRIMINATING (hard) tests: truthfulness (SimpleQA accuracy 53.3, confident-wrong 40) and reasoning (GPQA Diamond, open-ended, 72.7 — Physics 4/4, Chemistry 4/7). SATURATED tests, all 100 and low-information for a frontier model: instruction-following (IFEval), over-refusal (XSTest), sycophancy (SycEval-style, easy facts), and AIME-2024 (contaminated — the model recalled an answer rather than deriving it; EXCLUDED from the reasoning score). LESSON: hard, contamination-resistant benchmarks discriminate; easy or leaked ones don't — which is exactly the suite's design thesis, now shown empirically. The composite is renormalized over scored dimensions and is still pulled UP by the three saturated 100s, so read the per-dimension scores and the confident-wrong rate, not the composite. Not yet scored: agentic coding (25%) and tool-use (10%) need sandboxed execution — left null, never fabricated; long-context not yet run. Execution mode agent-run = host Claude via Claude Code subagents (params = subagent defaults, null). Small samples; SimpleQA + GPQA operator-graded against gold; IFEval/XSTest re-run with operator-config-neutralized responders (reproduced); first-run XSTest self-judged."
   },
   "artifacts": "results/artifacts/claude-opus-4-8/ifeval/responses.jsonl"
 }
