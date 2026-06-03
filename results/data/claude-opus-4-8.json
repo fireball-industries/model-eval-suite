@@ -15,8 +15,19 @@
       "benchmarks": {}
     },
     "reasoning": {
-      "score": null,
-      "benchmarks": {}
+      "score": 100.0,
+      "benchmarks": {
+        "aime_2024": {
+          "score": 100.0,
+          "mode": "agent-run",
+          "source": "https://huggingface.co/datasets/Maxwell-Jia/AIME_2024",
+          "snapshot": "2026-06-03",
+          "sample_size": 8,
+          "dataset_size": 30,
+          "metric": "exact-match accuracy (integer answer 0-999)",
+          "note": "CONTAMINATED / SATURATED — 8/8 correct, but AIME 2024 predates the model's Jan-2026 training cutoff and is heavily represented in training data. Problem 2024-II-8 is a smoking gun: the model hand-waved the tangent-circle geometry, wrote 'the known AIME answer is 127', and returned it rather than deriving it — recall, not reasoning. Treat this 100 as unreliable. A contamination-resistant reasoning score needs GPQA Diamond / ARC-AGI-2 / a post-cutoff problem set, all gated or unavailable here."
+        }
+      }
     },
     "instruction_following": {
       "score": 100.0,
@@ -103,7 +114,7 @@
       "benchmarks": {}
     }
   },
-  "composite": 88.3,
+  "composite": 92.2,
   "surfaced_metrics": {
     "confident_wrong_rate": 40.0,
     "refusal_rate": 0.0,
@@ -124,7 +135,7 @@
   },
   "qualitative": {
     "conciseness": "Not scored (no reliable benchmark). Observation from this run: responses were thorough and on-task; the no-comma critique (key 3540) and the <5-sentence elaboration (key 1262) stayed appropriately tight under length constraints.",
-    "notes": "PARTIAL RATING — in progress. Dimensions measured via agent-run: instruction-following (IFEval 12-prompt = 100), over-refusal (XSTest 20-prompt = 100), truthfulness (SimpleQA 15-prompt = 53.3 accuracy, 40 confident-wrong). Note the behavioral pair IFEval/XSTest SATURATE at 100 and don't discriminate top models; SimpleQA does — the model answered 6/15 confidently wrong rather than abstaining, which is the signal this suite exists to surface. Composite is renormalized over measured dimensions only (not a full rating). Execution mode 'agent-run' (host Claude via Claude Code subagents, 0 tool uses, single-turn; decoding params = subagent defaults, hence null). IFEval/XSTest were re-run with responders told to ignore operator/global style preferences — scores reproduced. Remaining dimensions: reasoning, sycophancy, long-context (agent-run feasible); agentic coding (25%) + tool-use (10%) need a sandboxed execution harness or cited third-party ingest — left null, never fabricated. Caveats: small samples; agent-run is harness-mediated (not raw API); SimpleQA operator-graded against dataset gold; first-run XSTest self-judged."
+    "notes": "PARTIAL RATING. Measured via agent-run: instruction-following (IFEval=100), over-refusal (XSTest=100), sycophancy (SycEval-style=100), reasoning (AIME-2024=100), truthfulness (SimpleQA accuracy 53.3, confident-wrong 40). KEY FINDING: for a frontier model, every accessible benchmark here SATURATES at 100 — IFEval/XSTest/the sycophancy probe are too easy, and AIME-2024 is contaminated (the model recalled an answer rather than deriving it; the set predates the Jan-2026 cutoff). Only SimpleQA discriminates, and its real signal is the 40% confident-wrong rate (the model guesses instead of abstaining on obscure facts). This validates the suite's contamination-aware thesis: genuine discrimination needs contamination-resistant/gated sets (GPQA Diamond, ARC-AGI-2, FrontierMath, HLE) and sandboxed agentic coding (SWE-bench) + tool-use (BFCL/tau-bench) — none runnable via agent-run here, so agentic_coding (25%) and tool_use (10%) are left null: honest gaps, never fabricated. The composite is renormalized over measured dimensions and is INFLATED by the saturated 100s — read the per-dimension scores and the confident-wrong rate, not the composite. Execution mode agent-run = host Claude via Claude Code subagents (params = subagent defaults, null); IFEval/XSTest re-run with operator-config-neutralized responders (reproduced). Samples are small; SimpleQA operator-graded vs gold; first-run XSTest self-judged."
   },
   "artifacts": "results/artifacts/claude-opus-4-8/ifeval/responses.jsonl"
 }
