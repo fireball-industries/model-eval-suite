@@ -6,8 +6,8 @@ Composite and per-dimension scores (0–100, higher better). Behavioral rates ar
 
 | Model | Composite | Code | Reason | Instr | Sycoph | Truth | Tool | Refusal-ok | LongCtx | Conf-wrong↓ | Refusal↓ | Ingested% |
 |-----|---------|----|------|-----|------|-----|----|----------|-------|-----------|--------|---------|
-| claude-opus-4-8 | 100 | – | – | 100 | – | – | – | 100 | – | – | 0 | 0% |
 | glm-5.1 | 100 | – | – | 100 | – | – | – | 100 | – | – | 0 | 0% |
+| claude-opus-4-8 | 88.3 | – | – | 100 | 100 | 53.3 | – | 100 | – | 40 | 0 | 0% |
 
 ## Cross-checks (not in composite)
 
