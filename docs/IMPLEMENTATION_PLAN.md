@@ -7,18 +7,19 @@ Written so a new session can resume with no prior context. Read this top to bott
 ## Where things stand
 
 **Done (committed):**
-- Repo created: `fireball-industries/model-eval-suite` (public).
-- `docs/SOW.md` — Statement of Work (scope, methodology, scoring, deliverables, reproducibility).
-- `docs/testing-sequence.md` — the 10-phase runbook for evaluating one model.
-- `benchmarks/catalog.md` — ~25 benchmarks across 7 dimensions, each with rationale + weakness + source.
-- `results/` — schema, versioned weights, data template, empty scoreboard.
+- Docs + scaffold: SOW, testing-sequence, benchmark catalog, schema, weights, template.
+- **Milestone 1** — `harness/` Python package, stdio I/O contract, `.gitignore`, `.env.example`, `pyproject.toml`.
+- **Milestone 2** — `harness/score.py` (dimension means + renormalized composite + ingested_fraction) and `harness/render_scoreboard.py` (idempotent), unit-tested (`tests/`).
+- **Milestone 3 (partial)** — `harness/benchmarks/ifeval.py` and `xstest.py` (verifier engines + select/score CLIs), with tests. Ran both on `claude-opus-4-8` via **agent-run** and published the first scoreboard row (instruction-following + over-refusal). Re-ran both under a neutralized responder wrapper; scores reproduced.
+- **Execution model** — `AGENTS.md`: a model-neutral runbook. The host agent (Claude Code, Kilo Code + GLM-5.1, …) is the responder via its own subagents; the harness never calls a model. `agent-run` mode added to SOW/SCHEMA.
+- `.beads/` is git-ignored (private tracker, not shipped in this public repo).
 
 **Not done yet:**
-- No evaluation harness code exists. The repo is currently documents + scaffold only.
-- No model has been run. Scoreboard is empty.
-- No automation to compute composites or render the scoreboard from `results/data/*.json`.
+- Capability dimensions (reasoning, tool use, long context), full truthfulness, sycophancy, agentic coding — all unmeasured.
+- Full-size benchmark runs (current rows are small samples) and IFEval loose-metric + remaining instruction types.
+- GLM-5.1 run via Kilo Code (agent-run, host = GLM); bd-lite bootstrap for cross-machine provisioning.
 
-**The goal of the next phase:** turn the documents into a working pipeline and publish the first real model row.
+**The goal of the next phase:** widen coverage (more dimensions, full samples) and add the second model (GLM-5.1) via agent-run in its own harness.
 
 ---
 

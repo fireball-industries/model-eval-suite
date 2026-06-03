@@ -1,0 +1,22 @@
+# Secrets
+.env
+
+# bd-lite issue tracker — private tool; keep it out of this public repo entirely
+.beads/
+
+# Raw run artifacts (transcripts, harness logs) — linked from results, not committed wholesale
+results/artifacts/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Harness / benchmark caches
+.cache/
+harness/.cache/
